@@ -191,7 +191,7 @@ class MonteCarloLocalization(ParticleFilter):
         for i in range(self.M): #number of particles
             u_particle = us[i,:]
             xvec_particle = self.xs[i,:]
-            g[i,:] = tb.compute_dynamics(xvec_particle, u_particle, dt, compute_jacobians=false)
+            g[i,:] = tb.compute_dynamics(xvec_particle, u_particle, dt, compute_jacobians=False)
         
         ########## Code ends here ##########
 
