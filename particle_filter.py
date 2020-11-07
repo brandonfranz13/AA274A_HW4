@@ -62,7 +62,7 @@ class ParticleFilter(object):
         
         zero_mean = np.zeros(2)
         size = (self.M,2)
-        noise = np.random.multivariate_normal(zero_mean, R, size)
+        noise = np.random.multivariate_normal(zero_mean, self.R, size)
         self.xs = self.transition_model() + noise
         
         ########## Code ends here ##########
