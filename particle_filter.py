@@ -58,9 +58,13 @@ class ParticleFilter(object):
         ########## Code starts here ##########
         # TODO: Update self.xs.
         # Hint: Call self.transition_model().
-        # Hint: You may find np.random.multivariate_normal useful.
-
-
+        # Hint: You may find np.random.multivariate_normal useful.\
+        
+        zero_mean = np.zeros(2)
+        size = (self.M,2)
+        noise = np.random.multivariate_normal(zero_mean, R, size)
+        self.xs = self.transition_model() + noise
+        
         ########## Code ends here ##########
 
     def transition_model(self, us, dt):
@@ -181,8 +185,14 @@ class MonteCarloLocalization(ParticleFilter):
         #       not call tb.compute_dynamics. You need to compute the idxs
         #       where abs(om) > EPSILON_OMEGA and the other idxs, then do separate 
         #       updates for them
-
-
+        
+        #Slow, for loop method
+        g = np.empty_like(self.xs)
+        for i in range(self.M): #number of particles
+            u_particle = us[i,:]
+            xvec_particle = self.xs[i,:]
+            g[i,:] = tb.compute_dynamics(xvec_particle, u_particle, dt, compute_jacobians=false)
+        
         ########## Code ends here ##########
 
         return g
