@@ -60,10 +60,11 @@ class ParticleFilter(object):
         # Hint: Call self.transition_model().
         # Hint: You may find np.random.multivariate_normal useful.\
         
+	us = np.repeat(u, self.M)
         zero_mean = np.zeros(2)
         size = (self.M,2)
         noise = np.random.multivariate_normal(zero_mean, self.R, size)
-        self.xs = self.transition_model() + noise
+        self.xs = self.transition_model(us, dt) + noise
         
         ########## Code ends here ##########
 
